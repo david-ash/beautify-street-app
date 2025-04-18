@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ImageUpload from './components/ImageUpload';
 
 function App() {
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+
+  const handleImageUpload = (file, previewUrl) => {
+    setImageFile(file);
+    setImagePreviewUrl(previewUrl);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <h1>Urban Street Beautifier</h1>
+      <ImageUpload onImageUpload={handleImageUpload} />
+      {imagePreviewUrl && (
+        <div className="image-preview-section">
+          <h2>Preview</h2>
+          <img src={imagePreviewUrl} alt="Uploaded" />
+        </div>
+      )}
     </div>
   );
 }
